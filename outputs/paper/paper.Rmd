@@ -13,7 +13,9 @@ bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# hold figures in place solution (header_fix.tex) from  https://stackoverflow.com/a/33801326
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.pos = "!H")
+library(here)
 library(tidyverse)
 ```
 
@@ -34,27 +36,156 @@ As stated by the GSS Cumulative Codebook, as of 2004 non-response of the survey 
 ### Methodology changes to 2021 GSS
 Owing to the COVID-19 pandemic, the 2021 edition was primarily conducted through the web instead, with an alternative phone interview option. Participants were recruited through mail, who were then invited to complete the survey online. Given that this method was utilised, the consideration of an interviewer having to physically perform interviews was no longer required. Thus, a stratified non-clustered sampling approach was used for a greater sample size.
 
-Another significant change was that treatment non-respondents was not handled
+Another significant change was that non-respondents was not handled through sub-sampling. 
 
 # Results
 The survey data, along with the corresponding codebook, was retrieved from the GSS web portal (CITATION GSS WEBSITE). All analysis was performed in `R` [@citeR], with the data being read and prepared using `haven` [@citeHaven] and `dplyr` [@citeDplyr] respectively. Graphs were generated using `ggplot2` [@citeGgplot].
 
-For the purpose of this paper, we will be focusing on the sub-section of economic well-being within the replicating core, specifically in the 2018 and 2021 US GSS.
+For the purpose of this paper, we will be focusing on the sub-section of economic well-being within the replicating core, specifically in the 2018 and 2021 rounds of the GSS. Of interest are the following questions:
+
+Changes in financial situation - "During the last few years, has your financial situation been getting better, worse, or has it stayed the same?"
+
+Opinion on family income - "Compared with American families in general, would you say your family income is far below average, below average, average, above average, or far above average?"
+
+Standard of living will improve - "The way things are in America, people like me and my family have a good chance of improving our standard of living -- do you agree or disagree?"
+
+Satisfaction with financial situation - "We are interested in how people are getting along financially these days. So far as you and your family are concerned, would you say that you are pretty well satisfied with your present financial situation, more or less satisfied, or not satisfied at all?"
 
 # Discussion
+```{r}
+gss_data <- read_csv(here::here("inputs/data/gss_data.csv"))
+```
 
-## First discussion point
 
+## Changes in financial situation
 
-## Second discussion point
+```{r finalter, fig.align="center", fig.height = 6, fig.width = 5}
+# get proportion that each response represents, for corresponding age group and year
+finalter <- gss_data %>% 
+  drop_na() %>% 
+  count(age, year, finalter) %>%
+  group_by(age, year) %>%
+  mutate(pct = (n / sum(n)) * 100)
 
-## Third discussion point
+# set levels of variable, so that it is ordered from best -> worst in facet_wrap
+finalter <- finalter %>% 
+  mutate(finalter = factor(finalter, levels = c('Getting better', 'Stayed the same', 'Getting worse')))
 
-## Weaknesses and next steps
+# plot the percentages, facet_wrap to separate plots by opinion
+finalter %>% ggplot(aes(x = year, y = pct, colour = age)) + 
+  geom_point() + 
+  geom_line() +
+  scale_x_discrete(limits=c(2018, 2021)) +
+  facet_wrap(~finalter, scales = 'free_y', ncol = 1) +
+  labs(title = 'Opinions of financial situation', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
+  theme_linedraw() + 
+  scale_colour_brewer(palette = "Set1")
+```
+- 18-29 age group saw the most significant change in opinion, from being the group who least considered their financial situation to be getting worse to the most.
+- All groups had saw a decrease in the response of 'stayed the same', indicating some change
+- 40-49, 64-89 saw an increase in 'getting better'; 50-64 almost no change between years (38.69% in 2018, 38.93% in 2021)
+
+## Opinion on family income
+```{r finrela}
+# get proportion that each response represents, for corresponding age group and year
+finrela <- gss_data %>% 
+  drop_na() %>% 
+  count(age, year, finrela) %>%
+  group_by(age, year) %>%
+  mutate(pct = (n / sum(n)) * 100)
+
+# set levels of variable, so that it is ordered from best -> worst in facet_wrap
+finrela <- finrela %>% 
+  mutate(finrela = factor(finrela, levels = c('Far above average', 
+                                              'Above average', 
+                                              'Average',
+                                              'Below average',
+                                              'Far below average')))
+
+# plot the percentages, facet_wrap to separate plots by opinion
+finrela %>% ggplot(aes(x = year, y = pct, colour = age)) + 
+  geom_point() + 
+  geom_line() +
+  scale_x_discrete(limits=c(2018, 2021)) +
+  facet_wrap(~finrela, scales = 'free_y', ncol = 1) +
+  labs(title = '', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
+  theme_linedraw() + 
+  scale_colour_brewer(palette = "Set1")
+```
+- note that this is not objective, reliant on subject opinion
+- all age groups became more opinionated in 2021- decrease in 'average' response
+- larger portion of all groups consider income to be far above average and above average in 2021
+- below average- increases for 18-29 and 64-89
+- far below average - increases in 18-29, 30-39, 40-49
+
+## Standard of living will improve
+```{r goodlife}
+# get proportion that each response represents, for corresponding age group and year
+goodlife <- gss_data %>% 
+  drop_na() %>% 
+  count(age, year, goodlife) %>%
+  group_by(age, year) %>%
+  mutate(pct = (n / sum(n)) * 100)
+
+# set levels of variable, so that it is ordered from best -> worst in facet_wrap
+goodlife <- goodlife %>% 
+  mutate(goodlife = factor(goodlife, levels = c('Strongly agree', 
+                                              'Agree', 
+                                              'Neither agree nor disagree',
+                                              'Disagree',
+                                              'Strongly disagree')))
+
+# plot the percentages, facet_wrap to separate plots by opinion
+goodlife %>% ggplot(aes(x = year, y = pct, colour = age)) + 
+  geom_point() + 
+  geom_line() +
+  scale_x_discrete(limits=c(2018, 2021)) +
+  facet_wrap(~goodlife, scales = 'free_y', ncol = 1) +
+  labs(title = '', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
+  theme_linedraw() + 
+  scale_colour_brewer(palette = "Set1")
+```
+
+## Satisfaction with financial situation
+```{r satfin}
+# get proportion that each response represents, for corresponding age group and year
+satfin <- gss_data %>% 
+  drop_na() %>% 
+  count(age, year, satfin) %>%
+  group_by(age, year) %>%
+  mutate(pct = (n / sum(n)) * 100)
+
+# set levels of variable, so that it is ordered from best -> worst in facet_wrap
+satfin <- satfin %>% 
+  mutate(satfin = factor(satfin, levels = c('Pretty well satisfied', 'More or less satisfied', 'Not satisfied')))
+
+# plot the percentages, facet_wrap to separate plots by opinion
+satfin %>% ggplot(aes(x = year, y = pct, colour = age)) + 
+  geom_point() + 
+  geom_line() +
+  scale_x_discrete(limits=c(2018, 2021)) +
+  facet_wrap(~satfin, scales = 'free_y', ncol = 1) +
+  labs(title = '', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
+  theme_linedraw() + 
+  scale_colour_brewer(palette = "Set1")
+```
+- more divisive and mixed opinions than prior questions
+
+## Weaknesses
 
 - difference in survey methodology
-- survey format in person vs 
-- 2021 codebook stating higher than normal non-response for factual information
+- survey format in person vs web/phone
+- question wording for financial changes: "last few years", recency bias?
+- 2021 codebook stating higher than normal non-response for factual information, response bias
+
+## Next steps
+
+- under representation of certain populations in 2021 GSS, using weights to adjust
+- missing questions from the replicating core in 2021, specifically regarding job security
 
 \newpage
 
