@@ -14,34 +14,20 @@ bibliography: references.bib
 
 ```{r setup, include=FALSE}
 # hold figures in place solution (header_fix.tex) from  https://stackoverflow.com/a/33801326
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.pos = "!H")
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(here)
 library(tidyverse)
 ```
 
 # Introduction
+This paper was produced using `knitr` [@citeKnitr] and `bookdown` [@citeBookdown].
 
 # Data
-The survey data that is presented within this paper is obtained from the 2021 United States General Social Survey (GSS). 
+The survey data that is presented within this paper is obtained from the 2018 and 2021 rounds of United States General Social Survey (US GSS). The data, along with its corresponding codebooks, was retrieved from the GSS web portal [@citePortal]. All analysis was performed in `R` [@citeR], with the data being read and prepared using `haven` [@citeHaven] and `dplyr` [@citeDplyr] respectively. Graphs were generated using `ggplot2` [@citeGgplot].
 
-## Survey methodology
-The US GSS was created to collect long term public opinion and sentiment within the United States. The main component of the survey is the replicating core, a central set of questions repeated in each year the survey was conducted for the purpose of exploring trends in opinion over time (CITATION US GSS 2021). Additional modules present but not always consistently asked from year to year include topics relevant for the year. Examples of this for 2021 included but not limited to: attitudes towards policing, racial discrimination, and attitudes relating to trust in institutions and the government dealing with COVID-19. A major strength of the US GSS is in its long existence and replicating core, allowing tracking of contemporary sentiments over a significant period of time. Prior to 2021, surveys were administered in person in an interview format by an interviewer, which as noted by the 2021 codebook resulted in high response rates of above 50%. 
+The US GSS was created to collect long term public opinion and sentiment within the United States. The main component of the survey is the replicating core, a central set of questions repeated in each year the survey was conducted for the purpose of exploring trends in opinion over time [@citeCC2021]. Additional modules present but not always consistently asked from year to year include topics relevant for the year. Examples of this for 2021 included but were not limited to: attitudes towards policing, racial discrimination, and opinions relating to trust in institutions and the government for handling the COVID-19 pandemic. A major strength of the US GSS is in its long existence and replicating core, allowing tracking of contemporary sentiments over a significant period of time. Prior to 2021, surveys were administered in person in an interview format by an interviewer, which as noted by the 2021 codebook resulted in high response rates of above 50%. 
 
-The target population of the GSS are adults over the age of 18 who lived in non-institutional housing at the time of taking the survey. The intention is to make the obtained sample an accurate representation of the national population of the United States, thus a stratified sampling method was chosen. Since 2004, the US GSS has used the sampling frame adapted from the list of postal addresses maintained by the United States Postal Service (USPS). Areas are categorised with respect to their population densities as either urban or rural.
-
-However, a significant limitation as discussed in the GSS Cumulative Codebook (CITATION CUMULATIVE CODEBOOK) it is more often the case that urban and rural areas are interspersed. This causes difficulty for interviewers to effectively pursue interviewees, due to differences in density and ability to locate households in rural areas. From this, a multi-stage cluster sampling approach is applied. Firstly, stratification is performed- the entire sampling frame is grouped consisting of urban areas and one or more of its surrounding rural areas from which about half is selected. Secondly, each chosen area is divided into two segments according to whether they are part of a census tract or a block group. This allows for generating a high quality list of clustered addresses for interviewers to efficiently conduct the survey, reducing cost. 
-
-As stated by the GSS Cumulative Codebook, as of 2004 non-response of the survey has been addressed through sub-sampling. For all of the households in the sample that were non-respondents, a proportion, typically 50%, of those who were labelled as temporary non-respondents were pursued again. As such, those responses were weighted at 2 for the sub-sample to represent the entirety of the temporary non-respondents.
-
-### Methodology changes to 2021 GSS
-Owing to the COVID-19 pandemic, the 2021 edition was primarily conducted through the web instead, with an alternative phone interview option. Participants were recruited through mail, who were then invited to complete the survey online. Given that this method was utilised, the consideration of an interviewer having to physically perform interviews was no longer required. Thus, a stratified non-clustered sampling approach was used for a greater sample size.
-
-Another significant change was that non-respondents was not handled through sub-sampling. 
-
-# Results
-The survey data, along with the corresponding codebook, was retrieved from the GSS web portal (CITATION GSS WEBSITE). All analysis was performed in `R` [@citeR], with the data being read and prepared using `haven` [@citeHaven] and `dplyr` [@citeDplyr] respectively. Graphs were generated using `ggplot2` [@citeGgplot].
-
-For the purpose of this paper, we will be focusing on the sub-section of economic well-being within the replicating core, specifically in the 2018 and 2021 rounds of the GSS. Of interest are the following questions:
+For the purpose of this paper, we will be focusing on the sub-section of economic well-being within the replicating core. Of interest are the following topics and corresponding questions:
 
 Changes in financial situation - "During the last few years, has your financial situation been getting better, worse, or has it stayed the same?"
 
@@ -51,15 +37,32 @@ Standard of living will improve - "The way things are in America, people like me
 
 Satisfaction with financial situation - "We are interested in how people are getting along financially these days. So far as you and your family are concerned, would you say that you are pretty well satisfied with your present financial situation, more or less satisfied, or not satisfied at all?"
 
-# Discussion
-```{r}
+## Survey methodology
+The target population of the GSS are adults over the age of 18 who lived in non-institutional housing at the time of taking the survey. The intention is to make the obtained sample an accurate representation of the national population of the United States, thus a stratified sampling method was chosen. Since 2004, the US GSS has used the sampling frame adapted from the list of postal addresses maintained by the United States Postal Service. Areas are categorised with respect to their population densities as either urban or rural.
+
+However, a significant limitation as discussed in the cumulative codebook [@citeCC] it is more often the case that urban and rural areas are interspersed. This causes difficulty for interviewers to effectively pursue interviewees, due to differences in density and ability to locate households in rural areas. From this, a multi-stage cluster sampling approach is applied. Firstly, stratification is performed- the entire sampling frame is grouped consisting of urban areas and one or more of its surrounding rural areas from which about half is selected. Secondly, each chosen area is divided into two segments according to whether they are part of a census tract or a block group. This allows for generating a high quality list of clustered addresses for interviewers to efficiently conduct the survey, reducing cost. 
+
+As of 2004, non-response of the survey has been addressed through sub-sampling. For all of the households in the sample that were non-respondents a proportion, typically 50%, of those who were labelled as temporary non-respondents were pursued again. As such, those responses were weighted at 2 for the sub-sample to represent the entirety of the temporary non-respondents.
+
+### Methodology changes to 2021 GSS
+Owing to the COVID-19 pandemic, it was not possible to retain the physical interview format as used in all other years. Thus, the 2021 edition was primarily conducted through the web instead, with an alternative phone interview option. Participants were recruited through mail, which invited them to complete the survey online. Given that this method was utilised, the consideration of an interviewer having to physically perform interviews was no longer required. Thus, a stratified non-clustered sampling approach was used for a greater sample size. Another significant change was that non-respondents was not handled through sub-sampling. Instead, as specified by the 2021 codebook, adjustment in response weights in accordance with known population totals for each category the response belonged to was performed iteratively. 
+
+# Results
+Of the four chosen topics which we have focused on within this paper, all have displayed some level of shift in opinion between the years of 2018 and 2021. Generally, it appears economic well-being has decreased in 2021 overall, with fewer positive sentiments being recorded in most topics.
+
+For the topic of changes in financial situation (Figure \@ref(fig:finalter)), all groups had saw a decrease in the response of 'Stayed the same', and reflected in increases for both positive and negative responses. The 18-29 age group saw the most significant change in any of the responses. Of all age groups, in 2018 they had the fewest percentage which considered their financial situation to be getting worse, to becoming the most in 2021. For ages 40-49 and 64-89, they saw an increase in the opinion of 'Getting better'; 50-64s almost no change between years (38.69% for 2018, 38.93% for 2021).
+
+Perceptions of relative family income (Figure \@ref(fig:finrela)) also saw numerous changes in responses. It should be noted that as a result of the question phrasing, it is heavily reliant on subject perception on what they considered as the average income for an American family. Nonetheless, it is shown that all groups became more opinionated in 2021 by the decrease in 'average' responses. A greater portion of every group considered their income to be far above and above average in 2021, and only the groups 18-29 and 64-89 had increases in 'below average', while 'far below average' responses increased for 18-29, 30-39 and 40-49. 
+
+With regards to the belief that standards of living will improve under the current circumstances in the United States (Figure \@ref(fig:goodlife)), previously all groups maintained a positive sentiment in 2018 which was not reflected in 2021. All groups had reduced agreement, which shifted to neutral to strongly disagreeing.
+
+Lastly, satisfaction with personal and family income (Figure \@ref(fig:satfin)) became more neutral for all groups except 30-39, 40-49. These groups saw slight increases (<5%) in positive responses- however it was coupled alongside greater increase in negative ones. Similarly to changes in financial situations, 18-29 saw the largest decrease in positive satisfaction (-9.72%), with some becoming neutral (+2.25%) and more negative (+7.24%).
+
+```{r import_data}
 gss_data <- read_csv(here::here("inputs/data/gss_data.csv"))
 ```
 
-
-## Changes in financial situation
-
-```{r finalter, fig.align="center", fig.height = 6, fig.width = 5}
+```{r finalter, fig.align="center", fig.height = 6, fig.width = 5, fig.cap = 'Percentage of age group sharing opinion of changes in financial situation'}
 # get proportion that each response represents, for corresponding age group and year
 finalter <- gss_data %>% 
   drop_na() %>% 
@@ -75,19 +78,15 @@ finalter <- finalter %>%
 finalter %>% ggplot(aes(x = year, y = pct, colour = age)) + 
   geom_point() + 
   geom_line() +
-  scale_x_discrete(limits=c(2018, 2021)) +
+  scale_x_continuous(breaks = c(2018, 2021)) +
   facet_wrap(~finalter, scales = 'free_y', ncol = 1) +
-  labs(title = 'Opinions of financial situation', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  labs(title = 'Opinions of changes in financial situation', x = 'Year', y = '(%)', color = 'Age group') + 
   theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
   theme_linedraw() + 
   scale_colour_brewer(palette = "Set1")
 ```
-- 18-29 age group saw the most significant change in opinion, from being the group who least considered their financial situation to be getting worse to the most.
-- All groups had saw a decrease in the response of 'stayed the same', indicating some change
-- 40-49, 64-89 saw an increase in 'getting better'; 50-64 almost no change between years (38.69% in 2018, 38.93% in 2021)
 
-## Opinion on family income
-```{r finrela}
+```{r finrela, fig.align="center", fig.height = 7, fig.width = 5, fig.cap = 'Percentage of age group sharing perception of relative family income'}
 # get proportion that each response represents, for corresponding age group and year
 finrela <- gss_data %>% 
   drop_na() %>% 
@@ -107,21 +106,15 @@ finrela <- finrela %>%
 finrela %>% ggplot(aes(x = year, y = pct, colour = age)) + 
   geom_point() + 
   geom_line() +
-  scale_x_discrete(limits=c(2018, 2021)) +
+  scale_x_continuous(breaks = c(2018, 2021)) +
   facet_wrap(~finrela, scales = 'free_y', ncol = 1) +
-  labs(title = '', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  labs(title = 'Perception of family income relative to others', x = 'Year', y = '(%)', color = 'Age group') + 
   theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
   theme_linedraw() + 
   scale_colour_brewer(palette = "Set1")
 ```
-- note that this is not objective, reliant on subject opinion
-- all age groups became more opinionated in 2021- decrease in 'average' response
-- larger portion of all groups consider income to be far above average and above average in 2021
-- below average- increases for 18-29 and 64-89
-- far below average - increases in 18-29, 30-39, 40-49
 
-## Standard of living will improve
-```{r goodlife}
+```{r goodlife, fig.align="center", fig.height = 7, fig.width = 5,fig.cap = 'Percentage of age group sharing belief that standard of living is likely to improve'}
 # get proportion that each response represents, for corresponding age group and year
 goodlife <- gss_data %>% 
   drop_na() %>% 
@@ -141,16 +134,15 @@ goodlife <- goodlife %>%
 goodlife %>% ggplot(aes(x = year, y = pct, colour = age)) + 
   geom_point() + 
   geom_line() +
-  scale_x_discrete(limits=c(2018, 2021)) +
+  scale_x_continuous(breaks = c(2018, 2021)) +
   facet_wrap(~goodlife, scales = 'free_y', ncol = 1) +
-  labs(title = '', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  labs(title = 'Standard of living is likely to improve...', subtitle = '...given current circumstances in the U.S.', x = 'Year', y = '(%)', color = 'Age group') + 
   theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
   theme_linedraw() + 
   scale_colour_brewer(palette = "Set1")
 ```
 
-## Satisfaction with financial situation
-```{r satfin}
+```{r satfin, fig.align="center", fig.height = 6, fig.width = 5, fig.cap = 'Percentage of age group sharing opinion of satisfaction with financial situation'}
 # get proportion that each response represents, for corresponding age group and year
 satfin <- gss_data %>% 
   drop_na() %>% 
@@ -166,17 +158,25 @@ satfin <- satfin %>%
 satfin %>% ggplot(aes(x = year, y = pct, colour = age)) + 
   geom_point() + 
   geom_line() +
-  scale_x_discrete(limits=c(2018, 2021)) +
+  scale_x_continuous(breaks = c(2018, 2021)) +
   facet_wrap(~satfin, scales = 'free_y', ncol = 1) +
-  labs(title = '', x = 'Year', y = 'Percentage of group with opinion (%)', color = 'Age group') + 
+  labs(title = "Satisfaction of personal and family's financial situation", x = 'Year', y = '(%)', color = 'Age group') + 
   theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
   theme_linedraw() + 
   scale_colour_brewer(palette = "Set1")
 ```
-- more divisive and mixed opinions than prior questions
+
+# Discussion
+
+## Possible increase of income expectation for those aged 18-29
+- conflict between income satisfaction and above average income relative to others
+
+## Unanimous decreased belief of improving standard of living
+
 
 ## Weaknesses
 
+- should have leveraged biggest benefit US GSS and analysed more years
 - difference in survey methodology
 - survey format in person vs web/phone
 - question wording for financial changes: "last few years", recency bias?
