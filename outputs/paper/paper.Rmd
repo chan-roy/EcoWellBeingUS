@@ -1,5 +1,5 @@
 ---
-title: "Effects of the COVID-19 pandemic on economic well-being in the United States"
+title: "Increased financial dissatisfaction and worsening economic well-being in the United States (2018-2021)"
 subtitle: ""
 author: 
   - Roy Chan
@@ -13,17 +13,20 @@ bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
-# hold figures in place solution (header_fix.tex) from  https://stackoverflow.com/a/33801326
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(here)
 library(tidyverse)
 ```
 
 # Introduction
+Throughout the past few years, we have seen numerous major economic events that have greatly influenced economic well-being. Supply constraints have created shortages for many consumer goods, driving up demand, increasing cost of living and thereby raising rates of inflation. Stock market crashes and industry shut downs lead to high levels of unemployment during most of 2020 which is still recovering to this day. Many if not all of these events can be attributed in part or fully to the COVID-19 pandemic, which has majorly disrupted global circumstances. Within the United States, there has been a growing movement commonly known as the 'Great Resignation', characterized by high levels of resignations and voluntary unemployment of workers. Worker dissatisfaction has been growing within the U.S. in part due to salary stagnation and perceived income inequality [@citePalladino], with the pandemic acting as a catalyst for the birth of the movement. 
+
+Since 1972, the United States General Social Survey (US GSS) has been collecting data on opinions within the national population of America. Notably, economic well-being has been a consistent topic of interest within the survey, and as such we would like to explore whether the sentiments on topics such as satisfaction of financial situation and standard of living has changed in the most recent round of the survey, as compared to the one prior.
+
 This paper was produced using `knitr` [@citeKnitr] and `bookdown` [@citeBookdown].
 
 # Data
-The survey data that is presented within this paper is obtained from the 2018 and 2021 rounds of United States General Social Survey (US GSS). The data, along with its corresponding codebooks, was retrieved from the GSS web portal [@citePortal]. All analysis was performed in `R` [@citeR], with the data being read and prepared using `haven` [@citeHaven] and `dplyr` [@citeDplyr] respectively. Graphs were generated using `ggplot2` [@citeGgplot].
+The survey data that is presented within this paper is obtained from the 2018 and 2021 rounds of the US GSS. The data, along with its corresponding codebooks, was retrieved from the GSS web portal [@citePortal]. All analysis was performed in `R` [@citeR], with the data being read and prepared using `haven` [@citeHaven], `here` [@citeHere], and `dplyr` [@citeDplyr]. Graphs were generated using `ggplot2` [@citeGgplot].
 
 The US GSS was created to collect long term public opinion and sentiment within the United States. The main component of the survey is the replicating core, a central set of questions repeated in each year the survey was conducted for the purpose of exploring trends in opinion over time [@citeCC2021]. Additional modules present but not always consistently asked from year to year include topics relevant for the year. Examples of this for 2021 included but were not limited to: attitudes towards policing, racial discrimination, and opinions relating to trust in institutions and the government for handling the COVID-19 pandemic. A major strength of the US GSS is in its long existence and replicating core, allowing tracking of contemporary sentiments over a significant period of time. Prior to 2021, surveys were administered in person in an interview format by an interviewer, which as noted by the 2021 codebook resulted in high response rates of above 50%. 
 
@@ -80,7 +83,7 @@ finalter %>% ggplot(aes(x = year, y = pct, colour = age)) +
   geom_line() +
   scale_x_continuous(breaks = c(2018, 2021)) +
   facet_wrap(~finalter, scales = 'free_y', ncol = 1) +
-  labs(title = 'Opinions of changes in financial situation', x = 'Year', y = '(%)', color = 'Age group') + 
+  labs(title = 'Changes in financial situation over past few years', x = 'Year', y = '(%)', color = 'Age group') + 
   theme(text = element_text(size = 10), plot.title = element_text(face = 'bold')) +
   theme_linedraw() + 
   scale_colour_brewer(palette = "Set1")
@@ -165,27 +168,24 @@ satfin %>% ggplot(aes(x = year, y = pct, colour = age)) +
   theme_linedraw() + 
   scale_colour_brewer(palette = "Set1")
 ```
+\newpage
 
 # Discussion
 
-## Possible increase of income expectation for those aged 18-29
-- conflict between income satisfaction and above average income relative to others
+## Growing work dissatisfaction and possible increase of income expectation for those aged 18-29
+There is an interesting observation that can be made for respondents aged 18-29 that despite perceiving their financial situation as worsening in 2021, reinforced by a similar decrease in satisfaction, there has still been an increase in those who believe their income as being above average. We hypothesize that this seemingly contradictory combination of opinions could be the result of increasing income expectations and overall job dissatisfaction. Within the period of when the 2021 GSS had been conducted was the growing trend of the "Great Resignation", an economic movement of consisting of large numbers of voluntary resignations. In the United States, this was evidenced by worker quit rates rising drastically [@citeJOLTS] beginning in the middle of 2021, and has remained consistently high since. The trend has been theorized as being caused by a number of different factors, many of which have been catalyzed by the COVID-19 pandemic. Changes in mindsets and priorities such as establishing a healthier work-life balance and preference for remote work are common reasons for quitting [@citeHsu]. Of all workers, the trend appears to be most prevalent in younger ages [@citeSmart], which aligns with the opinions we have seen within the US GSS.
 
 ## Unanimous decreased belief of improving standard of living
+In a similar sense, re-evaluating priorities in life can also be the reason for the decreased agreement for an improving standard of living during 2021- it could be the case that the standard of living has increased due to the shift in attitudes away from a work-centric lifestyle. What is notable about this topic in particular is in its unanimous change in opinion, indicating that situational changes in the U.S. has been felt across all age groups. Although not specified, it is probable that pandemic related changes are the most pronounced reason for this, causing the most significant life alterations to the national population. At the time of writing this paper many of the previous pandemic-related restrictions have been lifted, but at the same time major world events have occurred; it would be valuable for this topic to be explored again in the next round of the GSS to see whether this opinion holds or improves.
 
+## Perception of income inequality
+Opinions of relative financial situation in 2021 differed significantly from that of 2018, with no age group having more than 43% considering their income to be average, as compared to the lowest in 2018 of 40%. The decreased prominence of the average response has consequently increased that of both above and below average, possibly demonstrating a larger divide in income equality. The data for this topic is particularly intriguing as it also reflects perceived changes in income for "American families in general". Once again, this can be correlated with the events of the pandemic, disproportionately affecting those with higher living costs such as large families [@citeUnicef] and is also dependent on employment sector, ranging from little to no changes in working conditions to furloughs or permanent layoffs.
 
 ## Weaknesses
-
-- should have leveraged biggest benefit US GSS and analysed more years
-- difference in survey methodology
-- survey format in person vs web/phone
-- question wording for financial changes: "last few years", recency bias?
-- 2021 codebook stating higher than normal non-response for factual information, response bias
+Several weaknesses of this paper include the utilisation of only two rounds of the US GSS in our analysis- it would have been beneficial to leverage this significant advantage of the survey and explore trends over a greater period of time. For the findings of change in opinion between 2018 and 2021, it is important to note the difference in survey methodology could have influenced responses. Higher than normal non-responses were recorded, indicating methodology changes has altered data collection. Furthermore, there is a level of uncertainty due to the subjective wording in questions. For instance, changes in financial situation uses the wording "last few years". Particularly for our discussion around the effects of the pandemic, this makes it difficult to say with certainty whether it caused changes in opinion. On the other hand, cognitive biases are often present in assessing financial situations [@citeBansal], so there is potential for recency bias due to the weight and scale of changes due to the pandemic.
 
 ## Next steps
-
-- under representation of certain populations in 2021 GSS, using weights to adjust
-- missing questions from the replicating core in 2021, specifically regarding job security
+The 2021 GSS has differed in its respondent demographic as compared to prior years, potentially due to format changes resulting in technical limitations. It would be appropriate to weight responses to correct sampling bias, and/or devising a way to address non-responses. It is unfortunate that due to limits in survey length some questions in prior years' replicating core that would have been valuable to our analysis were not reproduced, namely job security and ease of finding a similar job. As such, we aim to address this by including the questions in our supplemental survey.
 
 \newpage
 
