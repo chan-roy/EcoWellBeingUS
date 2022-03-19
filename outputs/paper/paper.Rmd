@@ -192,6 +192,11 @@ The 2021 GSS has differed in its respondent demographic as compared to prior yea
 \appendix
 
 # Supplementary survey
+Link to the supplemental survey: https://forms.gle/c8oybFBxwQmfraUk6
+
+For reference/backup, below is a screenshot of the survey questions as they would be presented to a respondent.
+
+\includegraphics[width=15cm]{survey.jpg}
 
 
 \newpage
