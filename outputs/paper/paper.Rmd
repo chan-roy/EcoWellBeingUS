@@ -1,11 +1,10 @@
 ---
 title: "Increased financial dissatisfaction and worsening economic well-being in the United States (2018-2021)"
-subtitle: ""
 author: 
   - Roy Chan
 thanks: "Code and data are available at: LINK."
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "Multiple notable economic events have occurred both globally and within the United States have occurred between the time of the last two rounds of the US GSS in 2018 and 2021. Within the GSS we investigate topics relating to economic well-being during those periods, specifically changes and satisfaction with personal and family financial situations, perception of income and standard of living. We find a trend of worse economic well-being, decreased belief in improvement of standard of living, and growing financial dissatisfaction especially among younger adults. We hypothesize that this aligns with the increase in popularity of work reform movements in the United States. To establish a greater correlation, we devise a supplemental survey for the GSS exploring sentiments towards work."
 output:
   bookdown::pdf_document2
 toc: FALSE
@@ -32,13 +31,17 @@ The US GSS was created to collect long term public opinion and sentiment within 
 
 For the purpose of this paper, we will be focusing on the sub-section of economic well-being within the replicating core. Of interest are the following topics and corresponding questions:
 
-Changes in financial situation - "During the last few years, has your financial situation been getting better, worse, or has it stayed the same?"
+\textbf{Changes in financial situation} 
+"During the last few years, has your financial situation been getting better, worse, or has it stayed the same?"
 
-Opinion on family income - "Compared with American families in general, would you say your family income is far below average, below average, average, above average, or far above average?"
+\textbf{Opinion on family income} 
+"Compared with American families in general, would you say your family income is far below average, below average, average, above average, or far above average?"
 
-Standard of living will improve - "The way things are in America, people like me and my family have a good chance of improving our standard of living -- do you agree or disagree?"
+\textbf{Standard of living will improve} 
+"The way things are in America, people like me and my family have a good chance of improving our standard of living -- do you agree or disagree?"
 
-Satisfaction with financial situation - "We are interested in how people are getting along financially these days. So far as you and your family are concerned, would you say that you are pretty well satisfied with your present financial situation, more or less satisfied, or not satisfied at all?"
+\textbf{Satisfaction with financial situation}
+"We are interested in how people are getting along financially these days. So far as you and your family are concerned, would you say that you are pretty well satisfied with your present financial situation, more or less satisfied, or not satisfied at all?"
 
 ## Survey methodology
 The target population of the GSS are adults over the age of 18 who lived in non-institutional housing at the time of taking the survey. The intention is to make the obtained sample an accurate representation of the national population of the United States, thus a stratified sampling method was chosen. Since 2004, the US GSS has used the sampling frame adapted from the list of postal addresses maintained by the United States Postal Service. Areas are categorised with respect to their population densities as either urban or rural.
