@@ -2,9 +2,9 @@
 title: "Increased financial dissatisfaction and worsening economic well-being in the United States (2018-2021)"
 author: 
   - Roy Chan
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/chan-roy/EcoWellBeingUS"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "Multiple notable economic events have occurred both globally and within the United States have occurred between the time of the last two rounds of the US GSS in 2018 and 2021. Within the GSS we investigate topics relating to economic well-being during those periods, specifically changes and satisfaction with personal and family financial situations, perception of income and standard of living. We find a trend of worse economic well-being, decreased belief in improvement of standard of living, and growing financial dissatisfaction especially among younger adults. We hypothesize that this aligns with the increase in popularity of work reform movements in the United States. To establish a greater correlation, we devise a supplemental survey for the GSS exploring sentiments towards work."
+abstract: "Multiple notable economic events have occurred both globally and within the United States within the last few years. We take a look at the two most recent rounds of the US GSS in 2018 and 2021 and investigate topics relating to economic well-being during those periods, specifically changes and satisfaction with personal and family financial situations, perception of income, and standard of living. We find a trend of worse economic well-being, decreased belief in improvement of standard of living, and growing financial dissatisfaction especially among younger adults. We hypothesize that this aligns with the increase in popularity of work reform movements in the United States. To establish a greater correlation, we devise a supplemental survey for the GSS exploring sentiments towards work."
 output:
   bookdown::pdf_document2
 toc: FALSE

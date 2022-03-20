@@ -1,5 +1,6 @@
-# starter_folder
+# EcoWellBeingUS
 
-This repo....
+This repository is a report of changes in economic well-being within the United States between 2018-2021. The dataset used for this paper is the 2021 and 2018 rounds of the United States General Social Survey. The primary focuses of the paper was to determine levels of financial satisfaction, income equality, and opinions on standard of living.
 
-It is organised as follows...
+## Reproducing the report
+To reproduce this report you must download the individual year datasets in `.dta` format from [the web portal](https://gss.norc.org/get-the-data/stata) and save the data within the `inputs/data` folder, with the 2021 data in a subfolder named `2021_stata`. Then, run `scripts/01-data_prep.R` and knit the report `outputs/paper/paper.Rmd` as `pdf_document2`.

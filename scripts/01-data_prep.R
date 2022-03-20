@@ -16,7 +16,7 @@ library(tidyverse)
 # Read in the data from 2021 GSS. Formatted as .dta, so use haven 
 raw_data_2021 <- haven::read_dta("inputs/data/2021_stata/gss2021.dta")
 
-# Select variables of interest. Variable information from GSS Codebook 
+# Select variables of interest. Variable information from GSS Codebook 2021
 selected_data_2021 <- raw_data_2021 %>% select(age, finalter, finrela, goodlife, satfin)
 
 # Reduce individual ages into grouped categories
@@ -65,7 +65,7 @@ selected_data_2021['year'] = 2021
 # Read in the data from 2018 GSS. Formatted as .dta, so use haven 
 raw_data_2018 <- haven::read_dta("inputs/data/GSS2018.dta")
 
-# Select variables of interest
+# Select variables of interest same as 2021
 selected_data_2018 <- raw_data_2018 %>% select(age, finalter, finrela, goodlife, satfin)
 
 # Reduce individual ages into grouped categories
